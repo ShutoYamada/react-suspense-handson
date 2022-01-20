@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import "./App.css";
-import AlwaysSuspend from "./components/AlwaysSusopend";
+import AlwaysSuspend from "./components/AlwaysSuspend";
 
 function App() {
   return (
