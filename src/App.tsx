@@ -86,9 +86,15 @@ const App = () => {
       >
         TransitionCount(count2) is {count2}
       </button>
+      <p>
+        ↓↓↓↓↓↓↓このやり方だとSuspendが終わった時にpending中に走ったstate更新が連続して起こる↓↓↓↓↓↓↓
+      </p>
       <Suspense fallback={<p>Loading...</p>}>
         <SimilarQueryHookDataLoaderCustom count={count2} />
       </Suspense>
+      <p>
+        ↓↓↓↓↓↓↓Suspendが終わった時にpending中に走ったstate更新をまとめた版↓↓↓↓↓↓↓
+      </p>
       <Suspense fallback={<p>Loading...</p>}>
         <SimilarQueryHookDataLoaderWithLoadable count={count2} />
       </Suspense>
