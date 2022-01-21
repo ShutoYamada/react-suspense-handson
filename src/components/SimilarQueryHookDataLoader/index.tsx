@@ -20,3 +20,17 @@ export const SimilarQueryHookDataLoader2: React.VFC = () => {
     </div>
   );
 };
+
+/** countというPropsを受け取るバージョン */
+export const SimilarQueryHookDataLoaderCustom: React.VFC<{ count: number }> = ({
+  count,
+}) => {
+  // countの値が変わる度にSuspendが走る
+  const data = useData(count.toString(), fetchData1);
+  return (
+    <div>
+      <div>Data is {data}</div>
+      <div>count is {count}</div>
+    </div>
+  );
+};
