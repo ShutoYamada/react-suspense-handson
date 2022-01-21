@@ -1,5 +1,5 @@
 import fetchData1 from "../../utils/fetchData1";
-import { useData } from "./hooks";
+import { useData, useDataCustom } from "./hooks";
 
 /** useQueryに近い自作Hookを使ったDataLoader1 */
 export const SimilarQueryHookDataLoader1: React.VFC = () => {
@@ -31,6 +31,21 @@ export const SimilarQueryHookDataLoaderCustom: React.VFC<{ count: number }> = ({
     <div>
       <div>Data is {data}</div>
       <div>count is {count}</div>
+    </div>
+  );
+};
+
+export const SimilarQueryHookDataLoaderWithLoadable: React.VFC<{
+  count: number;
+}> = ({ count }) => {
+  // countの値が変わる度にSuspendが走る
+  const data = useDataCustom(
+    `SimilarQueryHookDataLoaderWithLoadableWith_${count}`,
+    fetchData1
+  );
+  return (
+    <div>
+      <div>Data is {data}</div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { startTransition, Suspense, useState } from "react";
+import { startTransition, Suspense, useState, useTransition } from "react";
 import "./App.css";
 import LoadableDataLoader from "./components/LoadableDataLoader";
 // import FailedDataLoader from "./components/FailedDataLoader";
@@ -10,6 +10,7 @@ import {
   SimilarQueryHookDataLoader1,
   SimilarQueryHookDataLoader2,
   SimilarQueryHookDataLoaderCustom,
+  SimilarQueryHookDataLoaderWithLoadable,
 } from "./components/SimilarQueryHookDataLoader";
 import Loadable from "./types/Loadable";
 import fetchData1 from "./utils/fetchData1";
@@ -31,10 +32,17 @@ const App = () => {
   // 0.1秒毎に更新される値を取得
   const time = useTime();
 
+  // TransitionはuseTransitionから宣言することも、Reactからimportすることもできる
+  // こちらはHooksらしくTransitionの粒度が細かい(自由に定義できる)
+  const [namedIsPending, namedStartTransition] = useTransition();
+
   return (
     <div className="text-center">
       <h1 className="text-2xl">React App!</h1>
-      <p className="tabular-nums">🕒 {time}</p>
+      <p className={"tabular-nums" + (namedIsPending ? " text-blue-700" : "")}>
+        🕒 {time}
+      </p>
+      {/* <p className="tabular-nums">🕒 {time}</p> */}
       {/* <RenderingNotifier name="outside-Suspense" /> */}
       <Suspense fallback={<p>Loading...</p>}>
         {/* <RenderingNotifier name="inside-Suspense" /> */}
@@ -68,8 +76,11 @@ const App = () => {
       <button
         className="border p-1"
         onClick={() => {
-          startTransition(() => {
-            setCount2((c) => c + 1);
+          namedStartTransition(() => {
+            setCount2((c) => {
+              console.log(`${c} --> ${c + 1}`);
+              return c + 1;
+            });
           });
         }}
       >
@@ -77,6 +88,9 @@ const App = () => {
       </button>
       <Suspense fallback={<p>Loading...</p>}>
         <SimilarQueryHookDataLoaderCustom count={count2} />
+      </Suspense>
+      <Suspense fallback={<p>Loading...</p>}>
+        <SimilarQueryHookDataLoaderWithLoadable count={count2} />
       </Suspense>
     </div>
   );
