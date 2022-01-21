@@ -1,5 +1,6 @@
 import { Suspense, useState } from "react";
 import "./App.css";
+import FailedDataLoader from "./components/FailedDataLoader";
 // import AlwaysSuspend from "./components/AlwaysSuspend";
 import RenderingNotifier from "./components/RenderingNotifier";
 import { SometimesSuspend } from "./components/SometimeSuspend";
@@ -21,6 +22,7 @@ const App = () => {
         {/* <AlwaysSuspend /> */}
         <SometimesSuspend />
         {/* <RenderingNotifier name="inside-Suspense" /> */}
+        {/* <FailedDataLoader /> */}
         <button className="border p-1" onClick={() => setCount((c) => c + 1)}>
           {count}
         </button>
