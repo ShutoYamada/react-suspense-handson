@@ -1,5 +1,5 @@
 import fetchData1 from "../../utils/fetchData1";
-import useData from "./hooks";
+import { useData } from "./hooks";
 
 /** useQueryに近い自作Hookを使ったDataLoader1 */
 export const SimilarQueryHookDataLoader1: React.VFC = () => {
