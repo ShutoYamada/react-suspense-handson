@@ -4,6 +4,10 @@ import FailedDataLoader from "./components/FailedDataLoader";
 import NotGoodDataLoader from "./components/NotGoodDataLoader";
 // import AlwaysSuspend from "./components/AlwaysSuspend";
 import RenderingNotifier from "./components/RenderingNotifier";
+import {
+  SimilarQueryHookDataLoader1,
+  SimilarQueryHookDataLoader2,
+} from "./components/SimilarQueryHookDataLoader";
 import { SometimesSuspend } from "./components/SometimeSuspend";
 
 const App = () => {
@@ -21,13 +25,15 @@ const App = () => {
           Suspenseの配下は全てサスペンドに巻き込まれるため、これは描画されない
         </p>
         {/* <AlwaysSuspend /> */}
-        <SometimesSuspend />
+        {/* <SometimesSuspend /> */}
         <RenderingNotifier name="inside-Suspense" />
         {/* <FailedDataLoader /> */}
         <NotGoodDataLoader />
         <button className="border p-1" onClick={() => setCount((c) => c + 1)}>
           {count}
         </button>
+        <SimilarQueryHookDataLoader1 />
+        <SimilarQueryHookDataLoader2 />
       </Suspense>
     </div>
   );
