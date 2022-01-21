@@ -14,6 +14,7 @@ import {
 import Loadable from "./types/Loadable";
 import fetchData1 from "./utils/fetchData1";
 import fetchData2 from "./utils/fetchData2";
+import useTime from "./utils/useTime";
 
 const App = () => {
   // 再描画用のカウンタ
@@ -27,9 +28,13 @@ const App = () => {
   const [data2] = useState(() => new Loadable(fetchData2()));
   const [data3] = useState(() => new Loadable(fetchData2()));
 
+  // 0.1秒毎に更新される値を取得
+  const time = useTime();
+
   return (
     <div className="text-center">
       <h1 className="text-2xl">React App!</h1>
+      <p className="tabular-nums">🕒 {time}</p>
       {/* <RenderingNotifier name="outside-Suspense" /> */}
       <Suspense fallback={<p>Loading...</p>}>
         {/* <RenderingNotifier name="inside-Suspense" /> */}
