@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import fetchData1 from "../utils/fetchData1";
 
 /** あまり良くないが成功するDataLoader(setState + loading版) */
@@ -21,6 +21,20 @@ const NotGoodDataLoader: React.VFC = () => {
    * Promiseの解決より早く、setDataによるrenderを行なってSuspenseをキャンセルしている状態である
    * 最悪、永遠に解決されないPromiseを投げつつそれとは別に1秒後にsetDataを呼び出してもいいことになる
    */
+
+  // 使用しないuseMemo
+  const _ = useMemo(() => {
+    // この場合、"loading is true"は2回表示される
+    // ボタンを押してloadingがtrueになった段階で1回
+    // さらにコンポーネントがSuspendされ、記憶領域がロールバックされ
+    // 再度描画された時にuseMemoが改めて評価される
+    // Suspendに絡める場合、useMemoやuseCallbackの第二引数の値が変わっていなくても
+    // 評価が発生してしまう(=初回評価扱い)ので注意が必要である
+    if (loading) {
+      console.log("loading is true");
+    }
+    return 1;
+  }, [loading]);
 
   // データがあればそれを表示
   return (
