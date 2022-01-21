@@ -1,7 +1,7 @@
 import { useState } from "react";
 import fetchData1 from "../utils/fetchData1";
 
-/** うまくいかないDataLoader(setState使用版) */
+/** 失敗するDataLoader(setState使用版) */
 const FailedDataLoader: React.VFC = () => {
   const [data, setData] = useState<string | null>(null);
 
